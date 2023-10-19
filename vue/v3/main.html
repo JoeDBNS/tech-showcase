@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+
+    <!-- OG meta tags -->
+    <meta property="og:site_name" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:url" content="">
+    <!-- <meta property="og:image" content="static/img/siteimage.png"> -->
+    <meta property="og:type" content="website">
+
+    <link rel="shortcut icon" href="./../../favicon.ico" type="image/x-icon">
+
+    <title>Vue.js - Tech Showcase</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./../../_shared/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./../../_shared/css/shared.css">
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+    <header id="app-header">
+        <h1 class="text-center mt-4">Vue.js v3</h1>
+        <hr>
+    </header>
+
+    <main class="container-fluid">
+        <div id="app-users" class="row justify-content-center mt-5">
+            <div class="col-10 border border-danger p-3">
+                <button type="button" @click="user_max_show_count+=5">+ 5</button>
+                <button type="button" @click="user_max_show_count-=5">- 5</button>
+                <input type="text" maxlength="1" v-model="user_filter_letter">
+            </div>
+
+            <div class="col-10 border border-danger border-top-0 p-3">
+                <div v-cloak>
+                    <ul>
+                        <!-- <li v-for=" in user_data">
+                            {{user.first_name}} {{user.last_name}}
+                        </li> -->
+                    </ul>
+                    <!-- <hr> -->
+                    <ul>
+                        <li v-for="(user, index) in filteredUsersByFirstLetter" v-show="index <= user_max_show_count && index >= user_max_show_count-5">
+                            {{index}} - {{user.first_name}} {{user.last_name}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-5">
+            <div class="col-5 border border-primary p-3">
+                <div id="app-counter1"></div>
+            </div>
+
+            <div class="col-5 border border-primary p-3">
+                <div id="app-counter2"></div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-5">
+            <div class="col-10 border border-error p-3">
+                <div id="app-events" class="container-fluid">
+                    <div class="row">
+                        <button type="button" class="btn btn-primary" @click="LoadDataFromEndpoint()" v-if="event_data.length < 1">Load Data</button>
+                    </div>
+
+                    <div class="container-fluid" v-for="(event, index) in event_data" v-bind:id="'event-' + event.id" v-cloak>
+                        <div class="row pt-3 pb-3">
+                            <div class="col-2">
+                                <p>{{event.id}}</p>
+                            </div>
+
+                            <div class="col-10">
+                                <p class="text-end">{{event.title}}</p>
+                            </div>
+
+                            <div class="col-12">
+                                <p>{{event.body}}</p>
+                            </div>
+                        </div>
+
+                        <hr>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="app-main" class="container-fluid pt-5 px-0">
+            <div class="row justify-content-center mt-5">
+                <div class="col-10 border border-warning-subtle p-3">
+                    <p>Using text interpolation: {{test_text}}</p>
+                    <p>Using v-html directive: <span v-html="test_text"></span></p>
+                </div>
+            </div>
+
+            <div class="row justify-content-center mt-5">
+                <div class="col-10 border border-warning-subtle p-3">
+                    <button type="button" class="btn btn-primary" @click="ToggleAlertShow()">Toggle Alert</button>
+                </div>
+                <div class="col-5 p-3" :class="{'d-none': !alert_show}" v-cloak>
+                    <div class="alert alert-warning">
+                        ALERT - show by class
+                    </div>
+                </div>
+                <div class="col-5 p-3" :hidden="!alert_show" v-cloak>
+                    <div class="alert alert-info">
+                        ALERT - show by attribute
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center mt-5">
+                <div class="col-10 border border-warning-subtle border-bottom-0 p-3">
+                    <input type="text" class="form-control" placeholder="new item" v-model="shopping.new_item" @keyup.enter="AddShoppingItem()">
+                    <br>
+                    <button type="buton" class="btn btn-primary" @click="AddShoppingItem()">Add Item</button>
+                </div>
+                <div class="col-10 border border-warning-subtle border-top-0 p-3">
+                    <ul>
+                        <li v-for="(item, index) in shopping.item_list" @click="RemoveShoppingItem(index)">
+                            {{item}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer id="app-footer">
+        <!-- _ -->
+    </footer>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
+    <script src="./../../_shared/js/data.js"></script>
+
+    <script setup type="module" src="./js/main.js"></script>
+</body>
+
+</html>
